@@ -44,6 +44,18 @@ python scripts/build_panel.py           # makes data/ariyan_panel.zip (a few MB)
 Then send `data/ariyan_panel.zip` to Claude, or run `python scripts/run_funding_carry_study.py` yourself.
 The study follows `docs/A001_FUNDING_CARRY_PROTOCOL.md`, written before any result.
 
+## Wide-universe download and the studies that follow (A004, then A003 in March 2027)
+```
+git pull
+python scripts/download_binance_wide.py      # every USDT perp incl. delisted; ~20-60 min; re-runnable
+python scripts/build_panel.py --raw data/raw_wide --out data/panel_wide   # makes data/ariyan_panel_wide.zip
+```
+A004 (`scripts/run_a004_wide_carry.py`) runs on that panel now. A003 (`scripts/run_forward_carry.py`) is a forward test
+whose window is 2026-11-22 to 2027-02-28; re-download after 2027-03-05 and run it once.
+
+## Status
+See `results/RESULTS.md`. A001 and A002 failed; nothing is proven profitable.
+
 ## Next
 - Pre-registered study of cross-sectional funding carry on real data (protocol A001, ready).
 - CCXT paper adapter (Bybit / OKX / Hyperliquid), then forward paper trading.

@@ -42,6 +42,9 @@ class Registry:
             f.write(json.dumps(rec, sort_keys=True) + "\n")
         return rec
 
+    def records(self, family: str | None = None) -> list[dict]:
+        return [r for r in self._records() if family is None or r["family"] == family]
+
     def n_trials(self, family: str | None = None) -> int:
         return sum(1 for r in self._records() if family is None or r["family"] == family)
 

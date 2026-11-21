@@ -35,12 +35,17 @@ def main() -> int:
     qvol.to_csv(out / "volume.csv", index_label="date")
     report = qa(close, funding)
     (out / "qa.json").write_text(json.dumps(report, indent=2))
-    zpath = out.parent / "ariyan_panel.zip"
+    zpath = out.parent / f"ariyan_{out.name}.zip"
     with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
         for name in ("close.csv", "funding.csv", "volume.csv", "qa.json"):
             z.write(out / name, name)
     print(f"{len(symbols)} symbols, {close.index.min().date()} .. {close.index.max().date()}")
+    show_all = len(report) <= 40
+    if not show_all:
+        print("(more than 40 symbols: showing only symbols with gaps or missing funding)")
     for sym, r in report.items():
+        if not show_all and not (r["price_gaps"] or r["days_without_funding"]):
+            continue
         flag = "  <-- check" if r["price_gaps"] or r["days_without_funding"] else ""
         print(f"{sym:10s} {r['first']} {r['days']:5d} days gaps={r['price_gaps']} no_funding={r['days_without_funding']}{flag}")
     print(f"\nSend this file to Claude: {zpath.resolve()} ({zpath.stat().st_size / 1e6:.1f} MB)")
