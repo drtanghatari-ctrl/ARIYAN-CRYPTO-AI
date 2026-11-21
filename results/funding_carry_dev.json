@@ -1,0 +1,36 @@
+{
+  "dev_end": "2025-10-31",
+  "n_trials_logged": 6,
+  "all_trials": {
+    "lb14_q0.2": 0.591,
+    "lb14_q0.3": 1.012,
+    "lb30_q0.2": 0.847,
+    "lb30_q0.3": 0.816,
+    "lb60_q0.2": 0.213,
+    "lb60_q0.3": 0.327
+  },
+  "best": {
+    "lookback": 14,
+    "quantile": 0.3
+  },
+  "best_metrics": {
+    "total_return": 1.4904088049344115,
+    "ann_vol": 0.16834828385876016,
+    "sharpe": 1.0123515114400718,
+    "max_drawdown": -0.2074879490470697,
+    "avg_turnover": 0.13497814037466782,
+    "halts": 7,
+    "ruined": false
+  },
+  "deflated_sharpe_prob": 0.8772308474295458,
+  "positive_blocks_of_6": 4,
+  "doubled_cost_total_return": 0.9421431011760311,
+  "marks": {
+    "1_sharpe>=0.5": true,
+    "2_dsr>=0.95": false,
+    "3_blocks>=4of6": true,
+    "4_doubled_cost_positive": true,
+    "5_maxdd<=15%": false
+  },
+  "all_marks_pass": false
+}
