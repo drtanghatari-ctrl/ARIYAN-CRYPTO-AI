@@ -36,6 +36,44 @@ class SignalTests(unittest.TestCase):
         self.assertGreater(w["UP"].iloc[-1], 0)
         self.assertLess(w["DOWN"].iloc[-1], 0)
 
+class NewSignalTests(unittest.TestCase):
+    def setUp(self):
+        n = 60
+        self.close = pd.DataFrame(
+            {"W": 100 * 1.01 ** np.arange(n), "M": 100.0 + 0 * np.arange(n), "L": 100 * 0.99 ** np.arange(n)},
+            index=idx(n),
+        )
+
+    def test_momentum_long_winner_short_loser(self):
+        from ariyan_crypto.signals import xs_momentum_weights
+        w = xs_momentum_weights(self.close, lookback=10, quantile=0.34).iloc[-1]
+        self.assertGreater(w["W"], 0)
+        self.assertLess(w["L"], 0)
+        self.assertAlmostEqual(w.sum(), 0.0)
+
+    def test_reversal_is_the_opposite(self):
+        from ariyan_crypto.signals import reversal_weights
+        w = reversal_weights(self.close, lookback=5, quantile=0.34).iloc[-1]
+        self.assertLess(w["W"], 0)
+        self.assertGreater(w["L"], 0)
+
+    def test_top_n_by_volume_and_eligibility(self):
+        from ariyan_crypto.signals import reversal_weights, top_n_by_volume
+        vol = pd.DataFrame({"W": 1.0, "M": 5.0, "L": 9.0}, index=self.close.index)
+        mask = top_n_by_volume(vol, n=2, lookback=5)
+        self.assertEqual(mask.iloc[-1].to_dict(), {"W": False, "M": True, "L": True})
+        self.assertFalse(mask.iloc[:4].any().any())  # warm-up
+        w = reversal_weights(self.close, lookback=5, quantile=0.5, eligible=mask).iloc[-1]
+        self.assertEqual(w["W"], 0.0)  # excluded asset never gets a weight
+
+    def test_funding_carry_respects_eligible(self):
+        f = pd.DataFrame({"A": [0.004] * 30, "B": [0.003] * 30, "C": [0.001] * 30}, index=idx(30))
+        el = pd.DataFrame({"A": False, "B": True, "C": True}, index=f.index)
+        w = funding_carry_weights(f, lookback=5, quantile=0.5, eligible=el).iloc[-1]
+        self.assertEqual(w["A"], 0.0)
+        self.assertLess(w["B"], 0)
+        self.assertGreater(w["C"], 0)
+
 
 class RegistryTests(unittest.TestCase):
     def test_chain_counts_and_tamper_detection(self):

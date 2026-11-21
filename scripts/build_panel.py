@@ -15,7 +15,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from ariyan_crypto.data import build_panel, qa  # noqa: E402
+from ariyan_crypto.data import build_panel_full, qa  # noqa: E402
 
 
 def main() -> int:
@@ -28,15 +28,16 @@ def main() -> int:
     if not symbols:
         print("No raw data found. Run scripts/download_binance.py first.", file=sys.stderr)
         return 1
-    close, funding = build_panel(raw, symbols)
+    close, funding, qvol = build_panel_full(raw, symbols)
     out.mkdir(parents=True, exist_ok=True)
     close.to_csv(out / "close.csv", index_label="date")
     funding.to_csv(out / "funding.csv", index_label="date")
+    qvol.to_csv(out / "volume.csv", index_label="date")
     report = qa(close, funding)
     (out / "qa.json").write_text(json.dumps(report, indent=2))
     zpath = out.parent / "ariyan_panel.zip"
     with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
-        for name in ("close.csv", "funding.csv", "qa.json"):
+        for name in ("close.csv", "funding.csv", "volume.csv", "qa.json"):
             z.write(out / name, name)
     print(f"{len(symbols)} symbols, {close.index.min().date()} .. {close.index.max().date()}")
     for sym, r in report.items():

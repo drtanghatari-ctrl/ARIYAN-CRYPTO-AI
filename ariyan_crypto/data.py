@@ -33,18 +33,28 @@ def _to_ms(col: pd.Series) -> pd.Series:
     return v.where(v < 10**14, v // 1000)  # microsecond stamps -> ms
 
 
-def load_klines(raw_dir: str | Path, symbol: str) -> pd.Series:
+def load_klines_full(raw_dir: str | Path, symbol: str) -> pd.DataFrame:
+    """Daily close and quote volume (USDT traded) indexed by UTC day."""
     files = sorted((Path(raw_dir) / "klines" / symbol).glob(f"{symbol}-1d-*.zip"))
     parts = []
     for p in files:
         df = _read_zip_csv(p)
         if len(df):
             ts = pd.to_datetime(_to_ms(df[0]), unit="ms")
-            parts.append(pd.Series(pd.to_numeric(df[4]).to_numpy(), index=ts.dt.normalize()))
+            parts.append(
+                pd.DataFrame(
+                    {"close": pd.to_numeric(df[4]).to_numpy(), "quote_volume": pd.to_numeric(df[7]).to_numpy()},
+                    index=ts.dt.normalize(),
+                )
+            )
     if not parts:
-        return pd.Series(dtype=float, name=symbol)
-    s = pd.concat(parts)
-    s = s[~s.index.duplicated(keep="last")].sort_index()
+        return pd.DataFrame(columns=["close", "quote_volume"], dtype=float)
+    out = pd.concat(parts)
+    return out[~out.index.duplicated(keep="last")].sort_index()
+
+
+def load_klines(raw_dir: str | Path, symbol: str) -> pd.Series:
+    s = load_klines_full(raw_dir, symbol)["close"].astype(float)
     s.name = symbol
     return s
 
@@ -66,18 +76,27 @@ def load_funding(raw_dir: str | Path, symbol: str) -> pd.Series:
     return daily
 
 
-def build_panel(raw_dir: str | Path, symbols: list[str]) -> tuple[pd.DataFrame, pd.DataFrame]:
-    closes, funds = {}, {}
+def build_panel_full(raw_dir: str | Path, symbols: list[str]) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Aligned daily (close, funding, quote_volume) panels; a missing day stays NaN."""
+    closes, funds, vols = {}, {}, {}
     for sym in symbols:
-        c = load_klines(raw_dir, sym)
-        if len(c):
-            closes[sym] = c
+        k = load_klines_full(raw_dir, sym)
+        if len(k):
+            closes[sym] = k["close"].astype(float)
+            vols[sym] = k["quote_volume"].astype(float)
             funds[sym] = load_funding(raw_dir, sym)
     if not closes:
         raise ValueError("no kline data found")
     close = pd.DataFrame(closes).sort_index()
-    close = close.reindex(pd.date_range(close.index.min(), close.index.max(), freq="D"))
-    funding = pd.DataFrame(funds).reindex(close.index)
+    full = pd.date_range(close.index.min(), close.index.max(), freq="D")
+    close = close.reindex(full)
+    funding = pd.DataFrame(funds).reindex(full)
+    qvol = pd.DataFrame(vols).reindex(full)
+    return close, funding, qvol
+
+
+def build_panel(raw_dir: str | Path, symbols: list[str]) -> tuple[pd.DataFrame, pd.DataFrame]:
+    close, funding, _ = build_panel_full(raw_dir, symbols)
     return close, funding
 
 
