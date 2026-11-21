@@ -32,9 +32,20 @@ pip install -r requirements.txt
 python -m unittest discover -s tests -v
 ```
 
+## Run the first real study (on your own computer)
+Needs Python 3.10+ and internet. No API key, no account, no money involved.
+```
+git clone https://github.com/drtanghatari-ctrl/ARIYAN-CRYPTO-AI
+cd ARIYAN-CRYPTO-AI
+pip install -r requirements.txt
+python scripts/download_binance.py      # public files from data.binance.vision, re-runnable
+python scripts/build_panel.py           # makes data/ariyan_panel.zip (a few MB)
+```
+Then send `data/ariyan_panel.zip` to Claude, or run `python scripts/run_funding_carry_study.py` yourself.
+The study follows `docs/A001_FUNDING_CARRY_PROTOCOL.md`, written before any result.
+
 ## Next
-- Data intake: public exchange archives for prices, funding and open interest.
-- Pre-registered study of cross-sectional funding carry on real data.
+- Pre-registered study of cross-sectional funding carry on real data (protocol A001, ready).
 - CCXT paper adapter (Bybit / OKX / Hyperliquid), then forward paper trading.
 
 Not financial advice. Crypto derivatives can lose all capital.
