@@ -1,0 +1,47 @@
+{
+  "dev_end": "2025-10-31",
+  "first_invested": "2020-01-31",
+  "all_trials_sharpe": {
+    "top10_h0.0001": 5.47,
+    "top10_h0.0002": 5.913,
+    "top30_h0.0001": 4.576,
+    "top30_h0.0002": 4.885
+  },
+  "best": {
+    "top_n": 10,
+    "hurdle": 0.0002
+  },
+  "best_stats": {
+    "sharpe": 5.912778635115036,
+    "total_return": 0.36084990727671973,
+    "max_drawdown": -0.01770081847849525,
+    "ann_return": 0.05498533402676742
+  },
+  "dsr": 1.0,
+  "blocks_pos": 5,
+  "doubled_cost": {
+    "sharpe": 2.68330055710697,
+    "total_return": 0.17039980506346786,
+    "max_drawdown": -0.06736055438825461,
+    "ann_return": 0.027712144816530726
+  },
+  "yearly_returns": {
+    "2020": 0.08704193330719145,
+    "2021": 0.19724528843853872,
+    "2022": -0.015226603555497431,
+    "2023": 0.010722324045480125,
+    "2024": 0.04795095945429528,
+    "2025": 0.0024706547183876992
+  },
+  "avg_invested": 0.42974773917182296,
+  "avg_daily_turnover": 0.028131728655288863,
+  "marks": {
+    "1_sharpe>=1.0": true,
+    "2_dsr>=0.95": true,
+    "3_blocks>=4of6": true,
+    "4_doubled_cost_positive": true,
+    "5_maxdd<=8%": true,
+    "6_no_year_below_-3%": true
+  },
+  "all_marks_pass": true
+}
