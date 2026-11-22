@@ -1,0 +1,34 @@
+{
+  "symbols_in_panel": 859,
+  "dev_end": "2025-10-31",
+  "n_trials_cumulative": 7,
+  "metrics": {
+    "total_return": 0.8668899995105415,
+    "ann_vol": 0.20357696187822494,
+    "sharpe": 0.626464579673909,
+    "max_drawdown": -0.3300080177907916,
+    "avg_turnover": 0.14722259185947945,
+    "halts": 14,
+    "ruined": false
+  },
+  "dsr": 0.581863961378101,
+  "blocks_pos": 4,
+  "doubled_cost_return": 0.2383275006189045,
+  "marks": {
+    "1_sharpe>=0.5": true,
+    "2_dsr>=0.95": false,
+    "3_blocks>=4of6": true,
+    "4_doubled_cost_positive": true,
+    "5_maxdd<=15%": false
+  },
+  "all_marks_pass": false,
+  "info_original24_metrics": {
+    "total_return": 1.7621479001166547,
+    "ann_vol": 0.16856136539773742,
+    "sharpe": 1.1164563002279257,
+    "max_drawdown": -0.1967050775941792,
+    "avg_turnover": 0.1353351156377904,
+    "halts": 6,
+    "ruined": false
+  }
+}

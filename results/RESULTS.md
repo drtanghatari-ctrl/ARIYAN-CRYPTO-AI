@@ -11,3 +11,9 @@ Momentum was marginal: best momentum28_N12 Sharpe 0.59, positive only at base co
 No candidate passed any combination of all five marks.
 
 Raw data: Binance archive; 5 days missing for every coin (2022-02-26..28, 2022-04-01..02).
+
+## A004 wide-universe funding carry (859 USDT perps incl. 30 ended): FAIL
+lookback 14, quantile 0.3, top-50 by volume: net Sharpe 0.63, return +87%, max drawdown -33%, 14 kill-switch halts, DSR 0.58 (N=7).
+Passed: Sharpe >= 0.5, 4/6 blocks, doubled costs (+24%). Failed: DSR and max drawdown.
+Same rule on the original 24 coins: Sharpe 1.12. The 0.5 Sharpe gap between the two is the survivorship bias in the hand-picked list.
+Carry on daily bars is closed. Forward test A003 stays scheduled.
