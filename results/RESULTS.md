@@ -26,3 +26,10 @@ Only 1 invested coin-day had a >2% basis move. None of the odd-basis coins (RAY,
 **The edge has decayed:** 2020 +8.7%, 2021 +19.7%, 2022 -1.5%, 2023 +1.1%, 2024 +4.8%, 2025 +0.2%.
 2023-2025 annualised return on equity: 2.1%, below cash yields. Passing the marks does not make it worth running.
 Caveats: daily closes hide intraday basis spikes; exchange/counterparty risk and spot-side borrowing are not modelled.
+
+## A005 holdout (2025-11-01 to 2026-10-31, run once per docs/A005_AMENDMENT_HOLDOUT.md): FAIL
+Net return -0.4% (365 days), max drawdown -0.5%, doubled costs -1.7%, cash benchmark +4.0%. Average coins held: 2.6 (the entry rule
+kept the strategy mostly in cash because funding stayed below the hurdle). Failed marks: net return > 0, doubled-cost positive, beats cash.
+The strategy did not blow up, but the edge was not present in the last year. Holdout is now spent.
+Conclusion: funding harvest on daily bars is closed as a profit engine. A006 forward test is cancelled (A005 amendment: FAIL closes the design).
+It remains a possible regime switch: it would turn on if funding yields rise again, as in 2020-21.

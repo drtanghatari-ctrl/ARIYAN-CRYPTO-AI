@@ -1,0 +1,24 @@
+{
+  "holdout": "2025-11-01..2026-10-31",
+  "result": {
+    "days": 365,
+    "total_return": -0.003964952771640662,
+    "max_drawdown": -0.005175618792094938,
+    "sharpe": -1.5706261789261335
+  },
+  "doubled_cost": {
+    "days": 365,
+    "total_return": -0.016811337981984975,
+    "max_drawdown": -0.01600302625018768,
+    "sharpe": -3.864898297896458
+  },
+  "cash_benchmark_return": 0.040000000000000036,
+  "avg_coins_held": 2.578082191780822,
+  "marks": {
+    "1_return>0": false,
+    "2_maxdd<=3%": true,
+    "3_doubled_cost_return>0": false,
+    "4_beats_cash": false
+  },
+  "all_marks_pass": false
+}
