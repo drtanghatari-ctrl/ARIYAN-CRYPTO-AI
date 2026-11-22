@@ -23,6 +23,7 @@ def collect(raw: Path, kind: str, parse, daily):
     frames, qa, errors = {}, {}, {}
     for sdir in sorted(p for p in (raw / kind).glob("*") if p.is_dir() and not p.name.startswith("_")):
         parts, bad, sq = [], 0, []
+        print(f"reading {kind}/{sdir.name} ...", flush=True)
         for f in sorted(sdir.glob("*.zip")):
             try:
                 res = daily(parse(f))
