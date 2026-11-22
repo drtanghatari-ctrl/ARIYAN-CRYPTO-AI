@@ -61,6 +61,19 @@ python scripts/build_spot_panel.py          # makes data/ariyan_spot_close.zip -
 ```
 Protocol: `docs/A005_HEDGED_HARVEST_PROTOCOL.md` (frozen before any spot data was seen).
 
+## A007: order-flow / positioning data (Binance metrics + bookDepth)
+Windows Command Prompt, inside the repo folder:
+```
+git pull
+python scripts/download_binance_micro.py --inspect
+python scripts/select_micro_universe.py --k 15
+python scripts/download_binance_micro.py
+python scripts/build_micro_panel.py
+```
+`--inspect` prints the real file headers (paste its output if anything errors). The download is about 1 GB, 30-60 min,
+re-runnable. Send `data/ariyan_micro_panel.zip` to Claude. Protocol: `docs/A007_ORDER_FLOW_PROTOCOL.md`; runner:
+`scripts/run_a007_flow.py` (single use).
+
 ## Status
 See `results/RESULTS.md`. A001 and A002 failed; nothing is proven profitable.
 
