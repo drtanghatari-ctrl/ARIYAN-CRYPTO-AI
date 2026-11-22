@@ -53,6 +53,14 @@ python scripts/build_panel.py --raw data/raw_wide --out data/panel_wide   # make
 A004 (`scripts/run_a004_wide_carry.py`) runs on that panel now. A003 (`scripts/run_forward_carry.py`) is a forward test
 whose window is 2026-11-22 to 2027-02-28; re-download after 2027-03-05 and run it once.
 
+## A005: hedged funding harvest (long spot, short perp)
+```
+git pull
+python scripts/download_binance_spot.py     # spot daily klines for coins that also have a perp (~10-30 min)
+python scripts/build_spot_panel.py          # makes data/ariyan_spot_close.zip -> send to Claude
+```
+Protocol: `docs/A005_HEDGED_HARVEST_PROTOCOL.md` (frozen before any spot data was seen).
+
 ## Status
 See `results/RESULTS.md`. A001 and A002 failed; nothing is proven profitable.
 
