@@ -33,3 +33,10 @@ kept the strategy mostly in cash because funding stayed below the hurdle). Faile
 The strategy did not blow up, but the edge was not present in the last year. Holdout is now spent.
 Conclusion: funding harvest on daily bars is closed as a profit engine. A006 forward test is cancelled (A005 amendment: FAIL closes the design).
 It remains a possible regime switch: it would turn on if funding yields rise again, as in 2020-21.
+
+### Why the harvest holdout failed: funding yields (annualised, paid to shorts; BTC / ETH / median of top-10 liquid coins)
+2020: 17 / 27 / 24 | 2021: 31 / 38 / 41 | 2022: 4 / 1 / -1 | 2023: 8 / 8 / 7 | 2024: 12 / 13 / 14 | 2025: 5 / 5 / 4 | 2026 (to Oct): 3 / 2 / 2.
+(Means across coins are distorted by outliers such as TRB at about -9% a day; medians are the reliable view.)
+Gross harvest yield in the holdout year was roughly 2-5% before costs, so net of two-leg trading costs it is about zero and below cash.
+The strategy only paid in 2020-21 and 2024. It would need funding yields well above ~10% to be worth running.
+Pending: A003 (directional carry forward test, window 2026-11-22 to 2027-02-28). A006 cancelled.
