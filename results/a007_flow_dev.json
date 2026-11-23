@@ -1,0 +1,34 @@
+{
+  "symbols": 214,
+  "start": "2020-09-01",
+  "dev_end": "2025-10-31",
+  "all_trials_sharpe": {
+    "taker_follow_3d": 0.285,
+    "taker_fade_3d": 0.085,
+    "toptrader_follow": -0.078,
+    "crowd_fade": 1.499,
+    "oi_growth_fade": -0.439,
+    "oi_growth_follow": -0.596
+  },
+  "best": "crowd_fade",
+  "best_metrics": {
+    "total_return": 11.304026017818174,
+    "ann_vol": 0.36412695729122013,
+    "sharpe": 1.4985919238256113,
+    "max_drawdown": -0.35521866858431406,
+    "avg_turnover": 0.2258434905493729,
+    "halts": 13,
+    "ruined": false
+  },
+  "dsr": 0.9440510481976752,
+  "blocks_pos": 5,
+  "doubled_cost_return": 6.692706160134879,
+  "marks": {
+    "1_sharpe>=0.5": true,
+    "2_dsr>=0.95": false,
+    "3_blocks>=4of6": true,
+    "4_doubled_cost_positive": true,
+    "5_maxdd<=15%": false
+  },
+  "all_marks_pass": false
+}

@@ -40,3 +40,11 @@ It remains a possible regime switch: it would turn on if funding yields rise aga
 Gross harvest yield in the holdout year was roughly 2-5% before costs, so net of two-leg trading costs it is about zero and below cash.
 The strategy only paid in 2020-21 and 2024. It would need funding yields well above ~10% to be worth running.
 Pending: A003 (directional carry forward test, window 2026-11-22 to 2027-02-28). A006 cancelled.
+
+## A007 order-flow / positioning signals (dev 2020-09-01 to 2025-10-31, 214 symbols, top-20 by volume): FAIL (near miss)
+Net Sharpe per candidate: crowd_fade 1.50, taker_follow_3d 0.29, taker_fade_3d 0.09, toptrader_follow -0.08, oi_growth_fade -0.44, oi_growth_follow -0.60.
+Best = crowd_fade (short coins where the 3-day mean of the all-account long/short ratio rose vs its 30-day mean; long where it fell): total return +1130%,
+vol 36%, **max drawdown -35.5% (13 kill-switch halts)**, doubled-cost return still +669%, 5 of 6 blocks positive, deflated Sharpe prob **0.944** (N=6; mark is 0.95).
+Failed marks: 2 (0.944 < 0.95) and 5 (drawdown 35.5% > 15%). Per protocol the family is closed and the holdout is NOT run for it.
+Honest reading: first signal in this project with a large, cost-robust dev edge, but it is one winner among six, and its risk is too high at gross 1.0.
+Data hygiene note: zero open interest treated as missing before the run (committed first; no returns were seen).
